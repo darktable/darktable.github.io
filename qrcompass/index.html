@@ -228,8 +228,8 @@
   }
 
   // --- UID: 4-char base64 hash from lat, lon, and creation time ---
-  function generateUID(lat, lon) {
-    const str = lat.toFixed(2) + ',' + lon.toFixed(2) + ',' + Date.now();
+  function generateUID(lat, lon, time, zone) {
+    const str = lat.toFixed(2) + ',' + lon.toFixed(2) + ',' + zone + ',' + time;
     let h = 0;
     for (let i = 0; i < str.length; i++) {
       h = ((h << 5) - h + str.charCodeAt(i)) | 0;
@@ -251,9 +251,18 @@
     lastLat = rLat;
     lastLon = rLon;
 
-    const uid = generateUID(rLat, rLon);
+    const epoch2000 = Math.floor((Date.now() - Date.UTC(2000, 0, 1)) / 1000);
+    const tz = -new Date().getTimezoneOffset() / 60;
+    const uid = generateUID(rLat, rLon, epoch2000, tz);
+
+    const payload = JSON.stringify({
+      id:  'qrcmps',
+      pos: [parseFloat(rLat.toFixed(2)), parseFloat(rLon.toFixed(2))],
+      t:   [tz, epoch2000],
+      uid: uid,
+    });
+
     coordLabel.textContent = rLat.toFixed(2) + ', ' + rLon.toFixed(2);
-    const payload = '{"id":"qrcmps","uid":"' + uid + '","pos":[' + rLat.toFixed(2) + ',' + rLon.toFixed(2) + ']}';
     generateQR(payload);
     updateRotation();
     setState('ready');
