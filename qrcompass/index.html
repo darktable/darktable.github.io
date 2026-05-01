@@ -251,8 +251,8 @@
     lastLat = rLat;
     lastLon = rLon;
 
-    const epoch2000 = Math.floor((Date.now() - Date.UTC(2000, 0, 1)) / 1000);
-    const tz = -new Date().getTimezoneOffset() / 60;
+    const epoch2000 = Math.floor((Date.now() - Date.UTC(2000, 0, 1)) / 1000); // seconds since 1/1/2000
+    const tz = -new Date().getTimezoneOffset() * 60; // timezone offset in seconds
     const uid = generateUID(rLat, rLon, epoch2000, tz);
 
     const payload = JSON.stringify({
