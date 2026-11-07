@@ -52,6 +52,7 @@
   /* Permission & Loading screens */
   .status-icon { font-size: 60px; margin-bottom: 16px; }
   .status-title { font-weight: 700; font-size: 1.25rem; margin-bottom: 8px; }
+  .status-instruct { font-size: 1rem; color: var(--secondary); text-align: left; padding: 0 32px; }
   .status-msg { font-size: 1rem; color: var(--secondary); text-align: center; padding: 0 32px; }
   .start-btn {
     margin-top: 24px;
@@ -113,7 +114,7 @@
 <div id="screen-permission" class="screen active">
   <div class="status-icon">&#x1F9ED;</div>
   <div class="status-title">QRCompass</div>
-  <div class="status-msg">Encodes your location as a QR code aligned to true north. Requires location and compass access.</div>
+  <div class="status-instruct"><ul><li>Place on a flat surface and scan with headset when prompted.</li><li>Encodes your location as a QR code aligned to true north.</li><li>Requires location and compass access.</li><li>Magnetic cases and accessories may affect compass accuracy.</li></ul></div>
   <button class="start-btn" id="start-btn">Start</button>
 </div>
 
